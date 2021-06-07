@@ -1,0 +1,25 @@
+# # config file version
+apiVersion: 1
+
+# # list of datasources that should be deleted from the database
+deleteDatasources:
+  - name: Citus
+    orgId: 1
+
+# # list of datasources to insert/update depending
+datasources:
+- name: Citus
+  type: postgres
+  access: proxy
+  url: citus:5432
+  user: postgres
+  database: postgres
+  basicAuth: false
+  isDefault: true
+  jsonData:
+    sslmode: 'disable'
+    postgresVersion: 1200
+  secureJsonData:
+    password: "bda"
+  version: 1
+  editable: true

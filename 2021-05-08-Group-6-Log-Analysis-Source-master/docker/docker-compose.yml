@@ -1,0 +1,57 @@
+version: "3.5"
+services:
+  citus:
+    build:
+      context: ./citus
+      shm_size: '256mb'
+    container_name: citus
+    env_file:
+      - ./citus/database.env
+    ports:
+      - 5432:5432
+    volumes:
+      - ./citus/data/:/var/lib/postgresql/data/
+    shm_size: '256mb'
+
+  spark:
+    build:
+      context: ./spark
+    container_name: spark
+    depends_on: 
+      - "citus"
+    ports:
+      - 4040:4040
+    volumes:
+      - ./spark:/job
+      - ./jupyter/notebooks/data/:/jupyter/notebooks/data/
+    links:
+     - citus
+    command: ["--driver-class-path", "job/spark_etl/postgresql-42.2.18.jar", "job/spark_etl/src/dataPipeline_pfsense.py"]    
+ 
+  grafana:
+    build:
+      context: ./grafana
+    container_name: grafana
+    environment: 
+      - GF_INSTALL_PLUGINS=grafana-worldmap-panel
+    ports:
+      - 3000:3000
+    links:
+     - citus
+    depends_on: 
+      - "citus"
+      - "spark"
+      
+  jupyter:
+    build:
+        context: ./jupyter
+    container_name: jupyter
+    links:
+      - citus
+    depends_on:
+      - "citus"
+      - "spark"
+    ports:
+      - 8888:8888
+    environment:
+      - JUPYTER_TOKEN=bda

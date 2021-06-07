@@ -1,0 +1,116 @@
+---
+sample_size: 10000
+source_path: "data/raw/pfsense.log"
+write_mode: "database"
+db_url: "jdbc:postgresql://citus:5432/postgres"
+db_properties: {
+            "user": "postgres",
+            "password": "bda",
+            "driver": "org.postgresql.Driver",
+        }
+#dest_path_v4: "data/clean/df_v4_10000"
+#dest_path_v6: "data/clean/df_v6_10000"
+#dest_path_log: "data/clean/df_log_10000"
+dest_path_v4: "/jupyter/notebooks/data/df_v4_10000"
+dest_path_v6: "/jupyter/notebooks/data/df_v6_10000"
+dest_path_log: "/jupyter/notebooks/data/df_log_10000"
+schema_v4:
+    {
+        "timestamp_rule": "string",
+        "sub_rule_number": "string",
+        "anchor": "string",
+        "tracker_id": "string",
+        "real_interface": "string",
+        "reason": "string",
+        "action": "string",
+        "traffic_direction": "string",
+        "ip_version": "int",
+        "tos": "string",
+        "ecn": "string",
+        "ttl": "string",
+        "ipv4_id": "string",
+        "offset": "int",
+        "flags": "string",
+        "protocoll_id": "string",
+        "protocoll_text": "string",
+        "length": "int",
+        "source_ip": "string",
+        "destination_ip": "string",
+        "source_port": "string",
+        "destination_port": "string",
+        "data_length": "int",
+        "tcp_flag": "string",
+        "sequence_num": "string",
+        "ack": "string",
+        "window": "string",
+        "urg": "string",
+        "options": "string",
+        "extra": "string",
+    }
+schema_v6:
+    {
+        "timestamp_rule": "string",
+        "sub_rule_number": "string",
+        "anchor": "string",
+        "tracker_id": "string",
+        "real_interface": "string",
+        "reason": "string",
+        "action": "string",
+        "traffic_direction": "string",
+        "ip_version": "int",
+        "class": "string",
+        "flow_label": "string",
+        "hop_limit": "int",
+        "protocol": "string",
+        "protocol_id": "string",
+        "length": "int",
+        "source_ip": "string",
+        "destination_ip": "string",
+    }
+final_cols_v4:
+    - "id"
+    - "timestamp"
+    - "rule_number"
+    - "tracker_id"
+    - "real_interface"
+    - "reason"
+    - "action"
+    - "traffic_direction"
+    - "ip_version"
+    - "tos"
+    - "ecn"
+    - "ttl"
+    - "ipv4_id"
+    - "offset"
+    - "flags"
+    - "protocoll_id"
+    - "protocoll_text"
+    - "length"
+    - "source_ip"
+    - "destination_ip"
+    - "source_port"
+    - "destination_port"
+    - "data_length"
+    - "tcp_flag"
+    - "sequence_num"
+    - "ack"
+    - "window"
+    - "options"
+final_cols_v6:
+    - "id"
+    - "timestamp"
+    - "rule_number"
+    - "tracker_id"
+    - "real_interface"
+    - "reason"
+    - "action"
+    - "traffic_direction"
+    - "ip_version"
+    - "class"
+    - "flow_label"
+    - "hop_limit"
+    - "protocol"
+    - "protocol_id"
+    - "length"
+    - "source_ip"
+    - "destination_ip"
